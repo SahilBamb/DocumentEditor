@@ -28,8 +28,8 @@ interface FileState {
 
 export const useFileStore = create<FileState>((set, get) => ({
   files: sampleFileTree,
-  expandedFolders: new Set(['folder-1', 'folder-2', 'folder-3']),
-  selectedFileId: 'file-1',
+  expandedFolders: new Set<string>(),
+  selectedFileId: sampleFileTree[0]?.id ?? null,
   filter: 'all',
   searchQuery: '',
 

@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import type { AIThread, AIMessage, AIMessageRole } from '@/types';
-import { sampleThreads } from '@/lib/sample-data';
 import { generateId } from '@/lib/utils';
 
 interface ChatState {
@@ -15,8 +14,8 @@ interface ChatState {
 }
 
 export const useChatStore = create<ChatState>((set, get) => ({
-  threads: sampleThreads,
-  activeThreadId: sampleThreads[0]?.id ?? null,
+  threads: [],
+  activeThreadId: null,
 
   setActiveThread: (id) => set({ activeThreadId: id }),
 

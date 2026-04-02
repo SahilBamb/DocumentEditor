@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 import type { ChangeSet, ChangeItemStatus } from '@/types';
-import { sampleChangeSets } from '@/lib/sample-data';
 import { generateId } from '@/lib/utils';
 
 interface ChangeState {
@@ -31,8 +30,8 @@ function deriveSetStatus(items: { status: ChangeItemStatus }[]): ChangeSet['stat
 }
 
 export const useChangeStore = create<ChangeState>((set, get) => ({
-  changeSets: sampleChangeSets,
-  activeChangeSetId: sampleChangeSets[0]?.id ?? null,
+  changeSets: [],
+  activeChangeSetId: null,
 
   setActiveChangeSet: (id) => set({ activeChangeSetId: id }),
 
