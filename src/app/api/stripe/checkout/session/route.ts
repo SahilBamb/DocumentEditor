@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   const { sessionId } = await request.json().catch(() => ({ sessionId: null }));
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await getStripe().checkout.sessions.retrieve(sessionId);
     const customerId = typeof session.customer === 'string'
       ? session.customer
       : session.customer?.id ?? null;

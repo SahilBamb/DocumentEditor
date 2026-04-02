@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   const { customerId } = await request.json().catch(() => ({ customerId: null }));
@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const subscriptions = await stripe.subscriptions.list({
+    const subscriptions = await getStripe().subscriptions.list({
       customer: customerId,
       status: 'active',
       limit: 1,
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     if (typeof productId === 'string') {
       try {
-        const product = await stripe.products.retrieve(productId);
+        const product = await getStripe().products.retrieve(productId);
         planName = product.name || 'Pro';
       } catch {
         // fall back to "Pro"

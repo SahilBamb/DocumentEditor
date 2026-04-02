@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 
 interface EditRequest {
   provider: string;
@@ -162,7 +162,7 @@ const callers: Record<string, typeof callOpenAI> = {
 
 async function resolvePlatformCredentials(customerId: string): Promise<{ provider: string; apiKey: string; model: string } | null> {
   try {
-    const subs = await stripe.subscriptions.list({
+    const subs = await getStripe().subscriptions.list({
       customer: customerId,
       status: 'active',
       limit: 1,

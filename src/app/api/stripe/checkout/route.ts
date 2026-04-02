@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   const { customerId } = await request.json().catch(() => ({ customerId: null }));
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: 'subscription',
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${appUrl}?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
