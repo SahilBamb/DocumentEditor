@@ -1,22 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getStripe } from '@/lib/stripe';
+const unavailable = () => Response.json(
+  { error: "Paid plans are being prepared. You can use your own model API key in Settings." },
+  { status: 503, headers: { "Cache-Control": "no-store" } },
+);
 
-export async function POST(request: NextRequest) {
-  const { sessionId } = await request.json().catch(() => ({ sessionId: null }));
-
-  if (!sessionId) {
-    return NextResponse.json({ error: 'Session ID required' }, { status: 400 });
-  }
-
-  try {
-    const session = await getStripe().checkout.sessions.retrieve(sessionId);
-    const customerId = typeof session.customer === 'string'
-      ? session.customer
-      : session.customer?.id ?? null;
-
-    return NextResponse.json({ customerId });
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Failed to retrieve session';
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
-}
+export const POST = unavailable;
+export const GET = unavailable;

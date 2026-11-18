@@ -8,6 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://document-editor-nu.vercel.app"),
+  alternates: { canonical: "/" },
   title: "DocumentEditor — AI-Native Writing",
   description: "Cursor for documents. AI proposes, you approve.",
 };

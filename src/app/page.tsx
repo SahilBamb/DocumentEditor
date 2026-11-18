@@ -435,6 +435,7 @@ export default function LandingPage() {
             <Link href="/features" className="text-xs transition-colors hover:opacity-70" style={{ color: 'var(--text-tertiary)' }}>
               Features
             </Link>
+            <Link href="/review-ai-document-edits" className="text-xs" style={{ color: "var(--text-tertiary)" }}>Review AI edits</Link>
             <Link href="/docs" className="text-xs transition-colors hover:opacity-70" style={{ color: 'var(--text-tertiary)' }}>
               Docs
             </Link>
